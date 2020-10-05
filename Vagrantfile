@@ -35,7 +35,7 @@ MACHINES = {
         :net => [
                    {ip: '192.168.254.2', adapter: 2, netmask: "255.255.255.252", virtualbox__intnet: "off1_net"},
                    {ip: '192.168.2.1',   adapter: 3, netmask: "255.255.255.192", virtualbox__intnet: "off1_hw"},
-                   {ip: '192.168.2.65', adapter: 4, netmask: "255.255.255.192", virtualbox__intnet: "testservers-office1-net"},
+                   {ip: '192.168.2.65',  adapter: 4, netmask: "255.255.255.192", virtualbox__intnet: "testservers-office1-net"},
                    {ip: '192.168.2.129', adapter: 5, netmask: "255.255.255.192", virtualbox__intnet: "managers-net"},
                    {ip: '192.168.2.193', adapter: 6, netmask: "255.255.255.192", virtualbox__intnet: "hardware-office1-net"}
                 ]
@@ -52,8 +52,8 @@ MACHINES = {
         :net => [
                    {ip: '192.168.253.2', adapter: 2, netmask: "255.255.255.252", virtualbox__intnet: "off2_net"},
                    {ip: '192.168.10.1',  adapter: 3, netmask: "255.255.255.192", virtualbox__intnet: "off2_hw"},
-                   {ip: '192.168.1.129', adapter: 4, netmask: "255.255.255.192", virtualbox__intnet: "testservers-office2-net"},
-                   {ip: '192.168.1.193', adapter: 5, netmask: "255.255.255.192", virtualbox__intnet: "hardware-office2-net"}
+                   {ip: '192.168.10.129', adapter: 4, netmask: "255.255.255.192", virtualbox__intnet: "testservers-office2-net"},
+                   {ip: '192.168.10.193', adapter: 5, netmask: "255.255.255.192", virtualbox__intnet: "hardware-office2-net"}
                 ]
   },
 
@@ -92,14 +92,12 @@ Vagrant.configure("2") do |config|
 case boxname.to_s
         when "inetRouter"
           box.vm.provision "shell", run: "always", inline: <<-SHELL
-            sysctl net.ipv4.conf.all.forwarding=1
-            sysctl net.ipv4.ip_forward
+            echo "net.ipv4.conf.all.forwarding=1" >> /etc/sysctl.conf;
             iptables -t nat -A POSTROUTING ! -d 192.168.0.0/16 -o eth0 -j MASQUERADE
             SHELL
 when "centralRouter"
           box.vm.provision "shell", run: "always", inline: <<-SHELL
-            sysctl net.ipv4.conf.all.forwarding=1
-            sysctl net.ipv4.ip_forward
+            echo "net.ipv4.conf.all.forwarding=1" >> /etc/sysctl.conf;
             echo "DEFROUTE=no" >> /etc/sysconfig/network-scripts/ifcfg-eth0
             echo "GATEWAY=192.168.255.1" >> /etc/sysconfig/network-scripts/ifcfg-eth1
             sudo reboot
@@ -112,16 +110,14 @@ when "centralRouter"
             SHELL
         when "office1Router"
           box.vm.provision "shell", run: "always", inline: <<-SHELL
-            sysctl net.ipv4.conf.all.forwarding=1
-            sysctl net.ipv4.ip_forward
+            echo "net.ipv4.conf.all.forwarding=1" >> /etc/sysctl.conf;
             echo "DEFROUTE=no" >> /etc/sysconfig/network-scripts/ifcfg-eth0
             echo "GATEWAY=192.168.254.1" >> /etc/sysconfig/network-scripts/ifcfg-eth1
             sudo reboot
             SHELL
         when "office2Router"
           box.vm.provision "shell", run: "always", inline: <<-SHELL
-            sysctl net.ipv4.conf.all.forwarding=1
-            sysctl net.ipv4.ip_forward
+            echo "net.ipv4.conf.all.forwarding=1" >> /etc/sysctl.conf;
             echo "DEFROUTE=no" >> /etc/sysconfig/network-scripts/ifcfg-eth0
             echo "GATEWAY=192.168.253.1" >> /etc/sysconfig/network-scripts/ifcfg-eth1
             sudo reboot
