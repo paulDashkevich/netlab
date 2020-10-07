@@ -50,49 +50,48 @@ Office2----/
 - Все сервера должны видеть друг друга
 - у всех новых серверов отключить дефолт на нат (eth0), который вагрант поднимает для связи
 - при нехватке сетевых интервейсов добавить по несколько адресов на интерфейс
-- --
+- 
 **Теоретическая часть**
 * найти свободные подсети:
 ***
 Сеть в Office1
 - 192.168.2.0/26 - dev 
--- 62 hosts; 
--- broadcast 192.168.2.63;
+- 62 hosts; 
+- broadcast 192.168.2.63;
 - 192.168.2.64/26 - test servers
--- 62 hosts;
--- broadcast 192.168.2.127;
+- 62 hosts;
+- broadcast 192.168.2.127;
 - 192.168.2.128/26 - managers
--- 62 hosts;
--- broadcast 192.168.2.191;
+- 62 hosts;
+- broadcast 192.168.2.191;
 - 192.168.2.192/26 - office hardware
--- 62 hosts;
--- broadcast 192.168.2.255
+- 62 hosts;
+- broadcast 192.168.2.255
 ***
 Сеть в office2
 - 192.168.10.0/25 - dev
--- 126 hosts;
--- broadcast 192.168.10.127
+- 126 hosts;
+- broadcast 192.168.10.127
 - 192.168.10.128/26 - test servers
--- 62 hosts;
--- broadcast 192.168.10.191;
+- 62 hosts;
+- broadcast 192.168.10.191;
 - 192.168.10.192/26 - office hardware
--- 62 hosts;
--- broadcast 192.168.10.255;
+- 62 hosts;
+- broadcast 192.168.10.255;
 ***
--- в Central в первой подсети 14 может быть хостов, во второй тоже, в третьей 62. Бродкасты: -15, -47, -127.
 Сеть central
 - 192.168.0.0/28 - directors
--- 14 hosts
--- broadcast 192.168.0.15;
+- 14 hosts
+- broadcast 192.168.0.15;
 - 192.168.0.32/28 - office hardware
--- 14 hosts;
--- broadcast 192.168.47;
+- 14 hosts;
+- broadcast 192.168.47;
 - 192.168.0.64/26 - wifi
--- 62 hosts;
--- broadcast 192.168.0.127;
+- 62 hosts;
+- broadcast 192.168.0.127;
 => свободная сеть 192.168.0.128/25 
--- 126 hosts
--- broadcast 192.168.0.255
+- 126 hosts
+- broadcast 192.168.0.255
 
 
  ![Рисунок сети](https://github.com/paulDashkevich/netlab/blob/master/netw1.png)
