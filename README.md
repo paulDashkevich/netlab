@@ -58,5 +58,5 @@ Office2----/
 -- в Central в первой подсети 14 может быть хостов, во второй тоже, в третьей 62. Бродкасты: -15, -47, -127.
 
  
-![Рисунок сети](https://github.com/paulDashkevich/netlab/blob/master/netw.png)
+
 
